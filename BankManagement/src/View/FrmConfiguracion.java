@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
- 
-
 package View;
 
+import Controller.ControllerPath;
 import Model.Serializer;
 import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 /**
  *
  * @author danie
@@ -22,10 +21,12 @@ public class FrmConfiguracion extends javax.swing.JFrame {
     /**
      * Creates new form FrmConfiguración
      */
+    int xMouse, yMouse;
+
     public FrmConfiguracion() {
         this.setUndecorated(true);
-        initComponents(); 
-        this.setSize(400, 220);
+        initComponents();
+        this.setSize(430, 150);
         this.setLocationRelativeTo(null);
         DesearealizarPath();
     }
@@ -40,11 +41,10 @@ public class FrmConfiguracion extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        PnlBan = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtUrl = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         btnSavePath = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,7 +52,17 @@ public class FrmConfiguracion extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel3.setBackground(new java.awt.Color(0, 102, 255));
+        PnlBan.setBackground(new java.awt.Color(0, 102, 255));
+        PnlBan.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                PnlBanMouseDragged(evt);
+            }
+        });
+        PnlBan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                PnlBanMousePressed(evt);
+            }
+        });
 
         btnClose.setBackground(new java.awt.Color(0, 102, 255));
         btnClose.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -64,16 +74,16 @@ public class FrmConfiguracion extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout PnlBanLayout = new javax.swing.GroupLayout(PnlBan);
+        PnlBan.setLayout(PnlBanLayout);
+        PnlBanLayout.setHorizontalGroup(
+            PnlBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlBanLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnClose))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        PnlBanLayout.setVerticalGroup(
+            PnlBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnClose)
         );
 
@@ -81,10 +91,6 @@ public class FrmConfiguracion extends javax.swing.JFrame {
         jLabel1.setText("Elergir carpeta de destino para guardar los datos");
 
         txtUrl.setText("jTextField1");
-
-        jButton1.setBackground(new java.awt.Color(0, 102, 255));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Guardar");
 
         btnSavePath.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/PopUp_Save.png"))); // NOI18N
         btnSavePath.addActionListener(new java.awt.event.ActionListener() {
@@ -97,34 +103,30 @@ public class FrmConfiguracion extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PnlBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 129, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(txtUrl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSavePath)
-                .addGap(14, 14, 14))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSavePath)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addComponent(PnlBan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(jButton1))
+                    .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSavePath))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -134,9 +136,9 @@ public class FrmConfiguracion extends javax.swing.JFrame {
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false); 
+        System.exit(0);
     }//GEN-LAST:event_btnCloseActionPerformed
-    
+
     public static void saveToFile(String fileName, String content) {
         try {
             FileWriter writer = new FileWriter(fileName + ".txt");
@@ -147,26 +149,55 @@ public class FrmConfiguracion extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
+
     private void btnSavePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSavePathActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
-                int returnValue = fileChooser.showOpenDialog(null);
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    txtUrl.setText(selectedFile.getAbsolutePath());
-                    saveToFile(selectedFile.getAbsolutePath(), txtUrl.getText());
-                    Serializer.serializarObjeto("ConfigPath.Dat", txtUrl.getText()); 
-                }
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            txtUrl.setText(selectedFile.getAbsolutePath());
+            saveToFile(selectedFile.getAbsolutePath(), txtUrl.getText());
+
+            // Utiliza el controlador para realizar la serialización
+            ControllerPath.setPathName(txtUrl.getText());
+            ControllerPath.setPath("ConfigPath.Dat");
+            boolean result = ControllerPath.serializar(); 
+            if (result == true) {
+                JOptionPane.showMessageDialog(null, "Configuración guardada correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al guardar la configuración.");
+            }
+        }
     }//GEN-LAST:event_btnSavePathActionPerformed
-    
+
+    private void PnlBanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PnlBanMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_PnlBanMousePressed
+
+    private void PnlBanMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PnlBanMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_PnlBanMouseDragged
+
     void DesearealizarPath() {
-
-        String path = Serializer.deserializarObjeto("ConfigPath.Dat", String.class); 
-        txtUrl.setText(path);
-
+        try {
+            File archivoConfig = new File("ConfigPath.Dat");
+            if (archivoConfig.exists() && !archivoConfig.isDirectory()) {
+                ControllerPath.setPathName("ConfigPath.Dat");
+                String path = ControllerPath.deserializar(String.class);
+                txtUrl.setText(path);
+            } else {
+                txtUrl.setText("Archivo de configuración no encontrado.");
+            }
+        } catch (Exception e) {
+            txtUrl.setText("Error al cargar la configuración: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -204,12 +235,11 @@ public class FrmConfiguracion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PnlBan;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnSavePath;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField txtUrl;
     // End of variables declaration//GEN-END:variables
 }
