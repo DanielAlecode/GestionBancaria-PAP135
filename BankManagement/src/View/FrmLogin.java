@@ -38,7 +38,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
         btnLogIn = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        lblNewAccount = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         PnlBan = new javax.swing.JPanel();
@@ -56,9 +56,15 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel3.setText("Ingrese su usuario");
 
         btnLogIn.setBackground(new java.awt.Color(0, 102, 255));
+        btnLogIn.setForeground(new java.awt.Color(255, 255, 255));
         btnLogIn.setText("Ingresar");
 
-        jLabel4.setText("Aun no tienes cuenta? Crear tu cuenta");
+        lblNewAccount.setText("Aun no tienes cuenta? Crear tu cuenta");
+        lblNewAccount.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblNewAccountMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -69,7 +75,7 @@ public class FrmLogin extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnLogIn)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel4)
+                        .addComponent(lblNewAccount)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtUsername)
@@ -91,7 +97,7 @@ public class FrmLogin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(jLabel4)
+                .addComponent(lblNewAccount)
                 .addGap(27, 27, 27)
                 .addComponent(btnLogIn)
                 .addGap(39, 39, 39))
@@ -161,6 +167,11 @@ public class FrmLogin extends javax.swing.JFrame {
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_PnlBanMouseDragged
 
+    private void lblNewAccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNewAccountMouseClicked
+        FrmNewAccount account = new FrmNewAccount(); 
+        account.show();
+    }//GEN-LAST:event_lblNewAccountMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -203,10 +214,10 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lblNewAccount;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

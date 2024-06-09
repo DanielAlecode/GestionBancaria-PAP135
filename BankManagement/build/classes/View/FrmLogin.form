@@ -52,7 +52,7 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="btnLogIn" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblNewAccount" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jLabel2" min="-2" pref="250" max="-2" attributes="0"/>
                                   <Component id="txtUsername" max="32767" attributes="0"/>
@@ -81,7 +81,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="txtPassword" min="-2" pref="32" max="-2" attributes="0"/>
                       <EmptySpace pref="36" max="32767" attributes="0"/>
-                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblNewAccount" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="btnLogIn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
@@ -116,13 +116,19 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="66" red="0" type="rgb"/>
                 </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Ingresar"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel4">
+            <Component class="javax.swing.JLabel" name="lblNewAccount">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Aun no tienes cuenta? Crear tu cuenta"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblNewAccountMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
