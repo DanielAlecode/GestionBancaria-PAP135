@@ -22,7 +22,7 @@ public class ModelUsuarios {
         try (FileWriter fw = new FileWriter(Url+filePath, true);
              BufferedWriter bw = new BufferedWriter(fw);
              PrintWriter out = new PrintWriter(bw)) {
-            out.println(idUsuario + "," + nombre + "," + apellido + "," + dui);
+            out.println(idUsuario + "," + nombre + "," + apellido + "," + dui + "," + usuario + "," + pwd );
             return true; 
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
