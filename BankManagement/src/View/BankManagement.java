@@ -5,6 +5,8 @@
  */
 package View;
 
+import java.io.File;
+
 /**
  *
  * @author danie
@@ -17,7 +19,13 @@ public class BankManagement {
    
     public static void main(String[] args) {
         FrmConfiguracion frmConf = new FrmConfiguracion(); 
-        frmConf.show();
+        FrmLogin login = new FrmLogin(); 
+        File archivoConfig = new File("ConfigPath.Dat");
+        if(archivoConfig.exists() && !archivoConfig.isDirectory()){
+            login.show(); 
+        }else{
+            frmConf.show();
+        }
     }
     
 }

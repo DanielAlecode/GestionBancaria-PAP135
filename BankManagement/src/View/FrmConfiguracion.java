@@ -139,25 +139,15 @@ public class FrmConfiguracion extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnCloseActionPerformed
 
-    public static void saveToFile(String fileName, String content) {
-        try {
-            FileWriter writer = new FileWriter(fileName + ".txt");
-            writer.write(content);
-            writer.close();
-            JOptionPane.showMessageDialog(null, "Se ha guardado el archivo correctamente.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    
     private void btnSavePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSavePathActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             txtUrl.setText(selectedFile.getAbsolutePath());
-            saveToFile(selectedFile.getAbsolutePath(), txtUrl.getText());
 
             // Utiliza el controlador para realizar la serialización
             ControllerPath.setPathName(txtUrl.getText());
