@@ -12,7 +12,7 @@ import Model.Serializer;
  * @author danie
  */
 public class ControllerUsuarios {
-    public static String idUsuario;
+    public static int idUsuario;
     public static String nombre;
     public static String apellido;
     public static String dui;
@@ -28,11 +28,11 @@ public class ControllerUsuarios {
         ControllerUsuarios.Url = Url;
     }
 
-    public static String getIdUsuario() {
+    public static int getIdUsuario() {
         return idUsuario;
     }
 
-    public static void setIdUsuario(String idUsuario) {
+    public static void setIdUsuario(int idUsuario) {
         ControllerUsuarios.idUsuario = idUsuario;
     }
 
@@ -80,6 +80,10 @@ public class ControllerUsuarios {
     public static boolean CrearUsuario(){
         Model.ModelUsuarios usuarioModel = new Model.ModelUsuarios(); 
         return usuarioModel.createUser(idUsuario, nombre, apellido, dui, usuario, pwd, Url);
+    }
+    public static String[] Login(){
+        Model.ModelUsuarios usuarioModel = new Model.ModelUsuarios(); 
+        return usuarioModel.login(usuario, pwd, Url);
     }
     
 }

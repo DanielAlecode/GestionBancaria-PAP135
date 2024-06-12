@@ -8,6 +8,9 @@ package View;
 import Controller.ControllerPath;
 import Controller.ControllerUsuarios;
 import java.io.File;
+import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,7 +23,10 @@ public class FrmNewAccount extends javax.swing.JFrame {
      * Creates new form FrmNewAccount
      */
     int xMouse, yMouse;
-    String path; 
+    private int[] randomNumbers;
+    private String uniqueId;
+    String path;
+
     public FrmNewAccount() {
         this.setUndecorated(true);
         initComponents();
@@ -193,6 +199,9 @@ public class FrmNewAccount extends javax.swing.JFrame {
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_PnlBanMousePressed
+
+  
+
     public void SaveUsuario() {
 
         if (txtLastname.getText().trim().equals("") || txtNombre.getText().trim().equals("")
@@ -201,28 +210,35 @@ public class FrmNewAccount extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos", "Error de Validación", JOptionPane.ERROR_MESSAGE);
         } else {
-
-            ControllerUsuarios.setIdUsuario("1");
-            ControllerUsuarios.setNombre(txtNombre.getText());
+            String firstName = txtNombre.getText();
+            Random random = new Random();
+            int userId = random.nextInt(999);
+            System.out.println(userId);
+            ControllerUsuarios.setIdUsuario(userId);
+            ControllerUsuarios.setNombre(firstName);
             ControllerUsuarios.setApellido(txtLastname.getText());
             ControllerUsuarios.setDui(txtDui.getText());
             ControllerUsuarios.setUsuario(txtUser.getText());
             ControllerUsuarios.setPwd(txtPassword.getText());
             ControllerUsuarios.setUrl(path);
-            boolean result =  ControllerUsuarios.CrearUsuario(); 
-            if(result==true){
-                JOptionPane.showMessageDialog(this, "Éxito", "Éxito se creo el usuario", JOptionPane.ERROR_MESSAGE);
+            boolean result = ControllerUsuarios.CrearUsuario();
+            if (result == true) {
+                JOptionPane.showMessageDialog(this, "Éxito", "Éxito se creo el usuario", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error", "El usuario no se pudo crear", JOptionPane.ERROR_MESSAGE);
             }
+
         }
 
     }
+
     void DesearealizarPath() {
         try {
             File archivoConfig = new File("ConfigPath.Dat");
             if (archivoConfig.exists() && !archivoConfig.isDirectory()) {
                 ControllerPath.setPathName("ConfigPath.Dat");
                 path = ControllerPath.deserializar(String.class);
-             
+
             } else {
             }
         } catch (Exception e) {

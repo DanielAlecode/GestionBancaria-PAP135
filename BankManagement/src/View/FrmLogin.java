@@ -5,6 +5,11 @@
  */
 package View;
 
+import Controller.ControllerPath;
+import Controller.ControllerUsuarios;
+import java.io.File;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author danie
@@ -14,12 +19,14 @@ public class FrmLogin extends javax.swing.JFrame {
     /**
      * Creates new form FrmLogin
      */
-    int xMouse, yMouse; 
+    int xMouse, yMouse;
+    String path;
     public FrmLogin() {
         this.setUndecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
         PnlBan.setSize(100, 100);
+        DesearealizarPath();
     }
 
     /**
@@ -58,6 +65,11 @@ public class FrmLogin extends javax.swing.JFrame {
         btnLogIn.setBackground(new java.awt.Color(0, 102, 255));
         btnLogIn.setForeground(new java.awt.Color(255, 255, 255));
         btnLogIn.setText("Ingresar");
+        btnLogIn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLogInMouseClicked(evt);
+            }
+        });
 
         lblNewAccount.setText("Aun no tienes cuenta? Crear tu cuenta");
         lblNewAccount.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -168,10 +180,48 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_PnlBanMouseDragged
 
     private void lblNewAccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNewAccountMouseClicked
-        FrmNewAccount account = new FrmNewAccount(); 
+        FrmNewAccount account = new FrmNewAccount();
         account.show();
     }//GEN-LAST:event_lblNewAccountMouseClicked
 
+    private void btnLogInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogInMouseClicked
+        // Recuperar usuario y contraseña de los campos de texto
+        String username = txtUsername.getText();
+        String password = new String(txtPassword.getPassword());
+
+        // Establecer el usuario y la contraseña en el controlador
+        ControllerUsuarios.setUsuario(username);
+        ControllerUsuarios.setPwd(password);
+        ControllerUsuarios.setUrl(path);
+        // Llamar al método Login del controlador
+        String[] userData = ControllerUsuarios.Login();
+
+        if (userData != null) {
+            // Login exitoso, puede abrir la ventana principal u otra acción
+            JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            // Por ejemplo, cerrar la ventana de login y abrir la principal
+            this.setVisible(false);
+            FrmConfiguracion mainFrame = new FrmConfiguracion();
+            mainFrame.setVisible(true);
+        } else {
+            // Datos incorrectos, mostrar mensaje de error
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnLogInMouseClicked
+      void DesearealizarPath() {
+        try {
+            File archivoConfig = new File("ConfigPath.Dat");
+            if (archivoConfig.exists() && !archivoConfig.isDirectory()) {
+                ControllerPath.setPathName("ConfigPath.Dat");
+                path = ControllerPath.deserializar(String.class);
+
+            } else {
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * @param args the command line arguments
      */

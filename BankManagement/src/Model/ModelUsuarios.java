@@ -18,7 +18,7 @@ public class ModelUsuarios {
 
     
 
-    public  boolean createUser(String idUsuario, String nombre, String apellido, String dui, String usuario, String pwd, String Url) {
+    public  boolean createUser(int idUsuario, String nombre, String apellido, String dui, String usuario, String pwd, String Url) {
         try (FileWriter fw = new FileWriter(Url+filePath, true);
              BufferedWriter bw = new BufferedWriter(fw);
              PrintWriter out = new PrintWriter(bw)) {
@@ -30,7 +30,7 @@ public class ModelUsuarios {
         }
     }
 
-    public List<String[]> readUsers() {
+    public List<String[]> readUsers(String Url) {
         List<String[]> users = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -41,5 +41,20 @@ public class ModelUsuarios {
             System.out.println("Error reading from file: " + e.getMessage());
         }
         return users;
+    }
+    
+     public String[] login(String usuario, String pwd, String Url) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Url + filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] userDetails = line.split(",");
+                if (userDetails[4].equals(usuario) && userDetails[5].equals(pwd)) {
+                    return userDetails; // Retorna los datos del usuario si las credenciales coinciden
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading from file: " + e.getMessage());
+        }
+        return null; 
     }
 }
