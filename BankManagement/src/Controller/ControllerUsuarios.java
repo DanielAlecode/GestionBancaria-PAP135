@@ -4,9 +4,6 @@
  * and open the template in the editor.
  */
 package Controller;
-import static Controller.ControllerPath.pathName;
-import Model.ModelUsuarios; 
-import Model.Serializer;
 /**
  *
  * @author danie

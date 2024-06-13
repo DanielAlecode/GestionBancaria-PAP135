@@ -17,6 +17,7 @@ public class BankManagement {
      * @param args the command line arguments
      */
    
+    @SuppressWarnings("deprecation")
     public static void main(String[] args) {
         FrmConfiguracion frmConf = new FrmConfiguracion(); 
         FrmLogin login = new FrmLogin(); 

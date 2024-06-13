@@ -26,6 +26,7 @@ public class Serializer {
         return sw;
     }
 
+    @SuppressWarnings("unchecked")
     public static <E> E deserializarObjeto(String direccionArchivo, Class<E> claseObjetivo) {
         E objeto = null;
         try (FileInputStream fis = new FileInputStream(direccionArchivo);
